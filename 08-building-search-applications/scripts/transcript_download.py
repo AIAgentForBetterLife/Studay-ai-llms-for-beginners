@@ -114,9 +114,12 @@ def get_transcript(playlist_item, counter_id):
 
 
 def process_queue():
-    """process the queue"""
-    while not q.empty():
-        video = q.get()
+    """Process the queue until it is empty."""
+    while True:
+        try:
+            video = q.get_nowait()
+        except queue.Empty:
+            break
 
         counter.increment()
 
